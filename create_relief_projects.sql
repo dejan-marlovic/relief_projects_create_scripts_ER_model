@@ -80,6 +80,29 @@ CREATE TABLE project_statuses (
 );
 
 
+
+
+
+CREATE TABLE addresses (
+    address_id INT AUTO_INCREMENT PRIMARY KEY,
+    street VARCHAR(255),
+    city VARCHAR(100),
+    state VARCHAR(50),
+    postal_code VARCHAR(20),
+    country VARCHAR(50),
+    is_deleted TINYINT DEFAULT 0,
+    deleted_at DATETIME DEFAULT NULL
+);
+
+CREATE TABLE organization_statuses (
+    organization_status_id INT AUTO_INCREMENT KEY,
+    organization_status_name VARCHAR(255),
+    is_deleted TINYINT DEFAULT 0,
+    deleted_at DATETIME DEFAULT NULL
+);
+
+
+
 CREATE TABLE organizations (
     organization_id INT AUTO_INCREMENT PRIMARY KEY,
     organization_name VARCHAR(255) NOT NULL,
@@ -94,19 +117,6 @@ CREATE TABLE organizations (
     is_deleted TINYINT DEFAULT 0,
     deleted_at DATETIME DEFAULT NULL
 );
-
-
-CREATE TABLE addresses (
-    address_id INT AUTO_INCREMENT PRIMARY KEY,
-    street VARCHAR(255),
-    city VARCHAR(100),
-    state VARCHAR(50),
-    postal_code VARCHAR(20),
-    country VARCHAR(50),
-    is_deleted TINYINT DEFAULT 0,
-    deleted_at DATETIME DEFAULT NULL
-);
-
 
 CREATE TABLE projects (
     project_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -249,12 +259,6 @@ CREATE TABLE memos (
 
 
 
-CREATE TABLE organization_statuses (
-    organization_status_id INT AUTO_INCREMENT KEY,
-    organization_status_name VARCHAR(255),
-    is_deleted TINYINT DEFAULT 0,
-    deleted_at DATETIME DEFAULT NULL
-);
 
 
 
