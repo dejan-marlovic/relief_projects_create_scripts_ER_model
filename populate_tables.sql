@@ -166,35 +166,140 @@ INSERT INTO costs (cost_name, cost_type_id) VALUES
     ('Paused');
     
     
-INSERT INTO projects (
-    ref_project_no, project_name, project_description, pin_code, 
-    project_status_id, approved, project_date, project_start, 
-    project_end, project_start_rev, project_end_rev, part_of, 
-    project_period_months, is_deleted, deleted_at
-) VALUES 
-    ('RP-2024-001', 'Emergency response to escalation of violence in', 'Providing food aid to disaster-affected areas.', 'A1234', 
-     1, 'Yes', '2024-01-10 08:00:00', '2024-02-01 08:00:00', '2024-06-01 08:00:00', NULL, NULL, NULL, 4, 0, NULL),
+INSERT INTO addresses (street, city, state, postal_code, country, is_deleted, deleted_at) VALUES
+('2025 E Street NW', 'Washington', 'DC', '20006', 'USA', 0, NULL), -- American Red Cross
+('1 Rue de Lausanne', 'Geneva', '', '1201', 'Switzerland', 0, NULL), -- International Committee of the Red Cross
+('3 UN Plaza', 'New York', 'NY', '10017', 'USA', 0, NULL), -- UNICEF
+('Palais des Nations', 'Geneva', '', '1211', 'Switzerland', 0, NULL), -- UNHCR (United Nations High Commissioner for Refugees)
+('Rue de Montbrillant 94', 'Geneva', '', '1202', 'Switzerland', 0, NULL), -- World Food Programme
+('1001 G Street NW', 'Washington', 'DC', '20001', 'USA', 0, NULL), -- Mercy Corps
+('7th Floor, 125 Maiden Lane', 'New York', 'NY', '10038', 'USA', 0, NULL), -- International Rescue Committee
+('2880 International Circle', 'Colorado Springs', 'CO', '80910', 'USA', 0, NULL), -- Compassion International
+('Rue de Varembé 7', 'Geneva', '', '1202', 'Switzerland', 0, NULL), -- World Health Organization (WHO)
+('1 Thomas Circle NW', 'Washington', 'DC', '20005', 'USA', 0, NULL), -- CARE International
+-- Financiers
+('500 Fifth Avenue', 'New York', 'NY', '10110', 'USA',0, NULL), -- Bill & Melinda Gates Foundation
+('1818 H Street NW', 'Washington', 'DC', '20433', 'USA',0, NULL), -- World Bank
+('700 19th Street NW', 'Washington', 'DC', '20431', 'USA', 0,NULL), -- International Monetary Fund (IMF)
+('320 East 43rd Street', 'New York', 'NY', '10017', 'USA',0,NULL), -- Ford Foundation
+('420 Fifth Avenue', 'New York', 'NY', '10018', 'USA',0, NULL); -- Rockefeller Foundation
 
-    ('RP-2024-002', 'Water Sanitation Project', 'Installing clean water facilities in rural communities.', 'B5678', 
-     2, 'Yes', '2024-02-15 09:30:00', '2024-03-01 09:30:00', '2024-08-01 09:30:00', NULL, NULL, NULL, 6, 0, NULL),
 
-    ('RP-2024-003', 'Medical Aid Deployment', 'Sending medical teams and supplies to conflict zones.', 'C9101', 
-     1, 'No', '2024-03-20 10:15:00', '2024-04-01 10:15:00', '2024-09-01 10:15:00', NULL, NULL, NULL, 5, 0, NULL),
+INSERT INTO organization_statuses (Organization_status_name, is_deleted, deleted_at) VALUES
+('Financier', 0, NULL),
+('Partner', 0, NULL);
 
-    ('RP-2024-004', 'Temporary Shelter Construction', 'Building emergency shelters for displaced families.', 'D1121', 
-     3, 'Yes', '2024-04-05 11:00:00', '2024-05-01 11:00:00', '2024-10-01 11:00:00', '2024-05-10 11:00:00', '2024-10-10 11:00:00', NULL, 5, 0, NULL),
+ 
+ INSERT INTO organizations (Organization_name, contact_email, contact_phone, address_id, organization_status_id, is_deleted, deleted_at) VALUES
+-- Relief Organizations (Partners)
+('American Red Cross', 'info@redcross.org', '+1-800-733-2767', 1, 2, 0, NULL),
+('UNICEF', 'contact@unicef.org', '+1-212-326-7000', 2, 2, 0, NULL),
+('World Food Programme', 'info@wfp.org', '+41-22-917-8111', 3, 2, 0, NULL),
+('International Rescue Committee', 'info@rescue.org', '+1-212-551-3000', 4, 2, 0, NULL),
+('Médecins Sans Frontières', 'Contact@msf.org', '+33-1-40-21-29-29', 5, 2, 0, NULL),
+('MErcy Corps', 'Info@mercycorps.org', '+1-888-842-0842', 6, 2, 0, NULL),
+('CARE International', 'Info@care.org', '+1-404-681-2552', 7, 2, 0, NULL),
+('WOrld Health Organization', 'Contact@who.int', '+41-22-791-2111', 8, 2, 0, NULL),
+('UNited Nations High Commissioner for Refugees (UNHCR)', 'Info@unhcr.org', '+41-22-739-8111', 9, 2, 0, NULL),
+('COmpassion International', 'Info@compassion.com', '+1-800-336-7676', 10, 2, 0, NULL),
 
-    ('RP-2024-005', 'Education Support for Refugees', 'Providing learning materials and classes for refugee children.', 'E3141', 
-     2, 'No', '2024-05-12 12:45:00', '2024-06-01 12:45:00', '2024-12-01 12:45:00', NULL, NULL, NULL, 6, 0, NULL);
-     
-     
-     
+-- Financiers
+('BIll & Melinda Gates Foundation', 'Info@gatesfoundation.org', '+1-206-709-3100', 11, 1, 0, NULL),
+('WOrld Bank', 'Contact@worldbank.org', '+1-202-473-1000', 12, 1, 0, NULL),
+('INternational Monetary Fund (IMF)', 'Info@imf.org', '+1-202-623-7000', 13, 1, 0, NULL),
+('FOrd Foundation', 'Info@fordfoundation.org', '+1-212-573-5000', 14, 1, 0, NULL),
+('ROckefeller Foundation', 'Info@rockefellerfoundation.org', '+1-212-869-8500', 15, 1, 0, NULL);
+ 
+ 
+ 
+ 
+ INSERT INTO projects (
+    ref_project_no, project_name, pin_code, donor_organization, funding_source, 
+    implementing_partner_organization_id, address_id, fo_support_cost_percent, 
+    IRW_support_cost_percent, project_description, project_status_id, approved, 
+    project_period_months, project_date, project_start, project_end, 
+    project_start_rev, project_end_rev, part_of, is_deleted, deleted_at
+) VALUES
+-- Disaster Relief Project funded by a Financier and implemented by a Partner
+('DRP-2024-001', 'Emergency Flood Relief in South Asia', 'FLOOD-2024', 11, 'Bill & Melinda Gates Foundation', 
+ 2, 3, 5.00, 2.50, 'Providing emergency shelter, food, and medical aid to flood victims.', 1, 'Yes', 
+ 12, NOW(), NOW(), DATE_ADD(NOW(), INTERVAL 12 MONTH), NULL, NULL, NULL, 0, NULL),
+
+-- Food Security Initiative
+('FSI-2024-002', 'Food Assistance for Refugees', 'FOOD-2024', 12, 'World Bank', 
+ 3, 4, 4.50, 3.00, 'Delivering food aid to displaced populations in conflict zones.', 2, 'Yes', 
+ 18, NOW(), NOW(), DATE_ADD(NOW(), INTERVAL 18 MONTH), NULL, NULL, NULL, 0, NULL),
+
+-- Healthcare and Vaccination Program
+('HVP-2024-003', 'Vaccination Drive in Rural Africa', 'HEALTH-2024', 13, 'International Monetary Fund', 
+ 8, 5, 6.00, 2.00, 'Providing essential vaccinations and health awareness in remote areas.', 3, 'Yes', 
+ 24, NOW(), NOW(), DATE_ADD(NOW(), INTERVAL 24 MONTH), NULL, NULL, NULL, 0, NULL),
+
+-- Education Support Program
+('ESP-2024-004', 'Education for Displaced Children', 'EDU-2024', 14, 'Ford Foundation', 
+ 6, 6, 5.00, 1.50, 'Supporting schooling and educational materials for refugee children.', 3, 'Yes', 
+ 36, NOW(), NOW(), DATE_ADD(NOW(), INTERVAL 36 MONTH), NULL, NULL, NULL, 0, NULL),
+
+-- Women Empowerment Project
+('WEP-2024-005', 'Women’s Economic Empowerment in Crisis Areas', 'WOMEN-2024', 15, 'Rockefeller Foundation', 
+ 7, 7, 7.00, 2.00, 'Providing vocational training and small business support to women.', 2, 'Yes', 
+ 30, NOW(), NOW(), DATE_ADD(NOW(), INTERVAL 30 MONTH), NULL, NULL, NULL, 0, NULL);
+ 
+ 
+ 
+INSERT INTO budgets (
+    project_id, budget_description, budget_preparation_date, total_amount, 
+    local_currency, local_currency_to_GBP, reporting_currency_SEK, 
+    reporting_currency_EUR, local_exchange_rate_id, local_exchange_rate_to_GBP, 
+    reporting_exchange_rate_SEK, reporting_exchange_rate_EUR, is_deleted, deleted_at
+) VALUES
+-- Budget for Emergency Flood Relief (USD as local currency)
+(1, 'Emergency Flood Relief budget covering food, shelter, and medical aid.', NOW(), 500000.00, 
+ 1, 3, 9, 2, 1, 3, 9, 2, 0, NULL),
+
+-- Budget for Food Assistance (EUR as local currency)
+(2, 'Food assistance program for displaced communities.', NOW(), 750000.00, 
+ 2, 3, 9, 2, 3, 3, 9, 2, 0, NULL),
+
+-- Budget for Vaccination Drive (GBP as local currency)
+(3, 'Vaccination drive for rural areas including logistics and personnel.', NOW(), 1000000.00, 
+ 3, 3, 9, 2, 5, 3, 9, 2, 0, NULL),
+
+-- Budget for Education Support (CAD as local currency)
+(4, 'Education support for refugee children including school supplies and teacher training.', NOW(), 600000.00, 
+ 6, 3, 9, 2, 10, 3, 9, 2, 0, NULL),
+
+-- Budget for Women Empowerment Project (INR as local currency)
+(5, 'Vocational training and microfinance support for women in crisis zones.', NOW(), 850000.00, 
+ 10, 3, 9, 2, 15, 3, 9, 2, 0, NULL);
+ 
+ 
+ 
+ 
      
 INSERT INTO cost_details (
     budget_id, cost_type_id, cost_id, cost_description, no_of_units, frequency_months, 
     unit_price, percentage_charging, amount_local_currency, amount_reporting_currency, 
     amount_GBP, amount_EURO, is_deleted, deleted_at
 ) VALUES
-(1,1, 1, 'HoM', 1, 3, 175.000, 15.00, 78.750, 24.856, 1.7900, 2.155, 0, NULL),
+(1,1, 1, 'HoM', 1, 3, 175.000, 15.000, 78.750, 24.856, 1.7900, 2.155, 0, NULL),
 (1,1, 1, 'Finance Manager', 1, 3, 170.00, 15.00, 76.500, 24.146, 1.739, 2.0930, 0, NULL),
-(1, 1, 1, 'Programme Coordinator', 1, 3, 160.00, 15.00, 72.000, 22.726, 1.637, 1.970, 0, NULL);
+(1, 1, 1, 'Programme Coordinator', 1, 3, 160.00, 15.00, 72.000, 22.726, 1.637, 1.970, 0, NULL),
+
+
+(1, 1, 2, 'Consultancy', 1, 3, 25.000, 30.00, 22.500, 7.102, 511.000, 616.000, 0, NULL),
+
+-- Vehicle Care & Maintenance (Running Cost, cost_id = 2)
+(1, 1, 2, 'Vehicle Care & Maintenance',  1, 3, 14.000, 33.00, 14.000, 4.419, 318.000, 383.000, 0, NULL),
+
+-- Office Supplies (Project Items, cost_id = 2)
+(1, 1, 2, 'Office Supplies', 1, 3, 3.760, 33.00, 3.760, 1.187, 85.000, 103.000, 0, NULL),
+
+-- Stationary (Project Items, cost_id = 2)
+(1, 1, 2, 'Stationary', 1, 3, 37.600, 33.00, 3.760, 1.187, 85.000, 103.000, 0, NULL),
+
+-- Food & Catering (Project Items, cost_id = 2)
+(1, 1, 2, 'Food & Catering', 1, 3, 37.600, 33.00, 3.760, 1.187, 85.000, 103.000, 0, NULL),
+
+-- External Audit Fees (Support Cost, cost_id = 2)
+(1, 1, 2, 'External Audit Fees', 1, 1, 200.000, 100.00, 200.000, 63.127, 4.546, 5.473, 0, NULL);

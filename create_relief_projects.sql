@@ -81,8 +81,6 @@ CREATE TABLE project_statuses (
 
 
 
-
-
 CREATE TABLE addresses (
     address_id INT AUTO_INCREMENT PRIMARY KEY,
     street VARCHAR(255),
@@ -118,6 +116,7 @@ CREATE TABLE organizations (
     deleted_at DATETIME DEFAULT NULL
 );
 
+
 CREATE TABLE projects (
     project_id INT AUTO_INCREMENT PRIMARY KEY,
     ref_project_no VARCHAR(255),
@@ -140,13 +139,13 @@ CREATE TABLE projects (
     FOREIGN KEY (project_status_id)
         REFERENCES project_statuses (project_status_id),
     approved ENUM('Yes', 'No') NOT NULL,
+    project_period_months INT,
     project_date DATETIME NOT NULL,
     project_start DATETIME NOT NULL,
     project_end DATETIME NOT NULL,
     project_start_rev DATETIME,
     project_end_rev DATETIME,
     part_of INT,
-    project_period_months INT,
     is_deleted TINYINT DEFAULT 0,
     deleted_at DATETIME DEFAULT NULL
 );
@@ -205,7 +204,7 @@ CREATE TABLE cost_details (
     no_of_units INT,
     frequency_months INT,
     unit_price DECIMAL(20 , 2 ),
-    percentage_charging DECIMAL(4 , 2 ),
+    percentage_charging DECIMAL(6 , 3 ),
     amount_local_currency DECIMAL(20 , 3 ),
     amount_reporting_currency DECIMAL(20 , 3 ),
     amount_GBP DECIMAL(20 , 3 ),
