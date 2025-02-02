@@ -172,7 +172,7 @@ INSERT INTO projects (
     project_end, project_start_rev, project_end_rev, part_of, 
     project_period_months, is_deleted, deleted_at
 ) VALUES 
-    ('RP-2024-001', 'Emergency Food Distribution', 'Providing food aid to disaster-affected areas.', 'A1234', 
+    ('RP-2024-001', 'Emergency response to escalation of violence in', 'Providing food aid to disaster-affected areas.', 'A1234', 
      1, 'Yes', '2024-01-10 08:00:00', '2024-02-01 08:00:00', '2024-06-01 08:00:00', NULL, NULL, NULL, 4, 0, NULL),
 
     ('RP-2024-002', 'Water Sanitation Project', 'Installing clean water facilities in rural communities.', 'B5678', 
@@ -186,3 +186,15 @@ INSERT INTO projects (
 
     ('RP-2024-005', 'Education Support for Refugees', 'Providing learning materials and classes for refugee children.', 'E3141', 
      2, 'No', '2024-05-12 12:45:00', '2024-06-01 12:45:00', '2024-12-01 12:45:00', NULL, NULL, NULL, 6, 0, NULL);
+     
+     
+     
+     
+INSERT INTO cost_details (
+    budget_id, cost_type_id, cost_id, cost_description, no_of_units, frequency_months, 
+    unit_price, percentage_charging, amount_local_currency, amount_reporting_currency, 
+    amount_GBP, amount_EURO, is_deleted, deleted_at
+) VALUES
+(1,1, 1, 'HoM', 1, 3, 175.000, 15.00, 78.750, 24.856, 1.7900, 2.155, 0, NULL),
+(1,1, 1, 'Finance Manager', 1, 3, 170.00, 15.00, 76.500, 24.146, 1.739, 2.0930, 0, NULL),
+(1, 1, 1, 'Programme Coordinator', 1, 3, 160.00, 15.00, 72.000, 22.726, 1.637, 1.970, 0, NULL);

@@ -80,12 +80,52 @@ CREATE TABLE project_statuses (
 );
 
 
+CREATE TABLE organizations (
+    organization_id INT AUTO_INCREMENT PRIMARY KEY,
+    organization_name VARCHAR(255) NOT NULL,
+    contact_email VARCHAR(255),
+    contact_phone VARCHAR(255),
+    address_id INT,
+    FOREIGN KEY (address_id)
+        REFERENCES addresses (address_id),
+    organization_status_id INT,
+    FOREIGN KEY (organization_status_id)
+        REFERENCES organization_statuses (organization_status_id),
+    is_deleted TINYINT DEFAULT 0,
+    deleted_at DATETIME DEFAULT NULL
+);
+
+
+CREATE TABLE addresses (
+    address_id INT AUTO_INCREMENT PRIMARY KEY,
+    street VARCHAR(255),
+    city VARCHAR(100),
+    state VARCHAR(50),
+    postal_code VARCHAR(20),
+    country VARCHAR(50),
+    is_deleted TINYINT DEFAULT 0,
+    deleted_at DATETIME DEFAULT NULL
+);
+
+
 CREATE TABLE projects (
     project_id INT AUTO_INCREMENT PRIMARY KEY,
     ref_project_no VARCHAR(255),
     project_name VARCHAR(255) NOT NULL,
-    project_description TEXT,
     pin_code VARCHAR(255),
+    donor_organization INT,
+    FOREIGN KEY (donor_organization)
+        REFERENCES organizations (organization_id),
+    funding_source VARCHAR(255),
+    implementing_partner_organization_id INT,
+    FOREIGN KEY (implementing_partner_organization_id)
+        REFERENCES organizations (organization_id),
+    address_id INT,
+    FOREIGN KEY (address_id)
+        REFERENCES addresses (address_id),
+    fo_support_cost_percent DECIMAL(4 , 2 ),
+    IRW_support_cost_percent DECIMAL(4 , 2 ),
+    project_description TEXT,
     project_status_id INT NOT NULL,
     FOREIGN KEY (project_status_id)
         REFERENCES project_statuses (project_status_id),
@@ -103,37 +143,26 @@ CREATE TABLE projects (
 
 
 
-CREATE TABLE cost_details (
-    cost_detail_id INT AUTO_INCREMENT PRIMARY KEY,
-    cost_type_id INT NOT NULL,
-    cost_id INT NOT NULL,
-    FOREIGN KEY (cost_type_id)
-        REFERENCES cost_types (cost_type_id),
-    FOREIGN KEY (cost_id)
-        REFERENCES costs (cost_id),
-    cost_description VARCHAR(255),
-    no_of_units INT,
-    frequency_months INT,
-    months_duration INT,
-    unit_price DECIMAL(5 , 2 ),
-    percentage_charging DECIMAL(5 , 2 ),
-    amount_local_currency DECIMAL(20 , 2 ),
-    amount_reporting_currency DECIMAL(20 , 2 ),
-    amount_GBP DECIMAL(20 , 2 ),
-    amount_EURO DECIMAL(20 , 2 ),
-    is_deleted TINYINT DEFAULT 0,
-    deleted_at DATETIME DEFAULT NULL
-);
-
 CREATE TABLE budgets (
     project_id INT NOT NULL,
     FOREIGN KEY (project_id)
         REFERENCES projects (project_id),
     budget_id INT AUTO_INCREMENT PRIMARY KEY,
-    cost_detail_id INT NOT NULL,
-    FOREIGN KEY (cost_detail_id)
-        REFERENCES cost_details (cost_detail_id),
+	budget_description VARCHAR(1000),
+    budget_preparation_date DATETIME,
     total_amount DECIMAL(20 , 2 ) NOT NULL,
+    local_currency INT,
+    FOREIGN KEY (local_currency)
+        REFERENCES currencies (currency_id),
+    local_currency_to_GBP INT,
+    FOREIGN KEY (local_currency)
+        REFERENCES currencies (currency_id),
+    reporting_currency_SEK INT,
+    FOREIGN KEY (local_currency)
+        REFERENCES currencies (currency_id),
+    reporting_currency_EUR INT,
+    FOREIGN KEY (local_currency)
+        REFERENCES currencies (currency_id),
     local_exchange_rate_id INT,
     FOREIGN KEY (local_exchange_rate_id)
         REFERENCES exchange_rates (exchange_rate_id),
@@ -146,11 +175,36 @@ CREATE TABLE budgets (
     reporting_exchange_rate_EUR INT NOT NULL,
     FOREIGN KEY (reporting_exchange_rate_EUR)
         REFERENCES exchange_rates (exchange_rate_id),
-    budget_description VARCHAR(1000),
-    budget_preparation_date DATETIME,
     is_deleted TINYINT DEFAULT 0,
     deleted_at DATETIME DEFAULT NULL
 );
+
+
+CREATE TABLE cost_details (
+    budget_id INT NOT NULL,
+    FOREIGN KEY (budget_id)
+        REFERENCES budgets (budget_id),
+    cost_detail_id INT AUTO_INCREMENT PRIMARY KEY,
+    cost_type_id INT NOT NULL,
+    cost_id INT NOT NULL,
+    FOREIGN KEY (cost_type_id)
+        REFERENCES cost_types (cost_type_id),
+    FOREIGN KEY (cost_id)
+        REFERENCES costs (cost_id),
+    cost_description VARCHAR(255),
+    no_of_units INT,
+    frequency_months INT,
+    unit_price DECIMAL(20 , 2 ),
+    percentage_charging DECIMAL(4 , 2 ),
+    amount_local_currency DECIMAL(20 , 3 ),
+    amount_reporting_currency DECIMAL(20 , 3 ),
+    amount_GBP DECIMAL(20 , 3 ),
+    amount_EURO DECIMAL(20 , 3 ),
+    is_deleted TINYINT DEFAULT 0,
+    deleted_at DATETIME DEFAULT NULL
+);
+
+
 
 /*
 Ask Dario about part_of column
@@ -193,16 +247,7 @@ CREATE TABLE memos (
     deleted_at DATETIME DEFAULT NULL
 );
 
-CREATE TABLE addresses (
-    address_id INT AUTO_INCREMENT PRIMARY KEY,
-    street VARCHAR(255),
-    city VARCHAR(100),
-    state VARCHAR(50),
-    postal_code VARCHAR(20),
-    country VARCHAR(50),
-    is_deleted TINYINT DEFAULT 0,
-    deleted_at DATETIME DEFAULT NULL
-);
+
 
 CREATE TABLE organization_statuses (
     organization_status_id INT AUTO_INCREMENT KEY,
@@ -212,20 +257,7 @@ CREATE TABLE organization_statuses (
 );
 
 
-CREATE TABLE organizations (
-    organization_id INT AUTO_INCREMENT PRIMARY KEY,
-    organization_name VARCHAR(255) NOT NULL,
-    contact_email VARCHAR(255),
-    contact_phone VARCHAR(255),
-    address_id INT,
-    FOREIGN KEY (address_id)
-        REFERENCES addresses (address_id),
-    organization_status_id INT,
-    FOREIGN KEY (organization_status_id)
-        REFERENCES organization_statuses (organization_status_id),
-    is_deleted TINYINT DEFAULT 0,
-    deleted_at DATETIME DEFAULT NULL
-);
+
 
 CREATE TABLE bank_details (
     bank_id INT AUTO_INCREMENT PRIMARY KEY,
