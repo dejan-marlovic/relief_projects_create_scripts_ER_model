@@ -420,3 +420,29 @@ VALUES
     ('Ordered'),
     ('Certified'),
     ('Booked');
+    
+    
+INSERT INTO payment_orders (
+    transaction_id, payment_order_date, number_of_transactions, 
+    payment_order_description, amount, total_amount, message, pin_code
+) VALUES
+(1, NOW(), 1, 'Emergency shelter funding - Phase 1', 80000, 100000, 'Approved for disbursement', 'RP1234'),
+(2, NOW(), 1, 'Medical aid supplies procurement', 110000, 140000, 'Funds allocated', 'RP5678'),
+(3, NOW(), 1, 'Food relief distribution initiative', 35000, 45000, 'Pending approval', 'RP9101'),
+(4, NOW(), 1, 'Clean water access project - Implementation', 56000, 70000, 'Payment processed', 'RP1121');
+
+
+INSERT INTO signatures (
+    signature_status_id, employee_id, payment_order_id, signature, signature_date
+) VALUES
+(1, 1, 1, 'AliceJohnsonSignature', NOW()),  -- Reviewed - Emergency shelter funding
+(2, 5, 2, 'EmmaJonesSignature', NOW()),     -- Ordered - Medical aid supplies
+(3, 10, 3, 'JackTaylorSignature', NOW()),   -- Certified - Food relief distribution
+(4, 15, 4, 'OliviaHarrisSignature', NOW()); -- Booked - Clean water access project
+
+
+INSERT INTO recipients (organization_id, payment_order_id) VALUES
+(1, 1), -- American Red Cross receives payment for Emergency Shelter Funding
+(2, 2), -- UNICEF receives payment for Medical Aid Supplies
+(3, 3), -- World Food Programme receives payment for Food Relief Distribution
+(4, 4); -- International Rescue Committee receives payment for Clean Water Access
