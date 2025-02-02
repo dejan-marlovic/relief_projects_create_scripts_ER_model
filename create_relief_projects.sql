@@ -222,7 +222,7 @@ Aask Dario about number of employees for each project
 Ask Dario if a person who is not part of the project can be owner of a document that 
 belongs to a project.
 Should document belong to employee?
-Can multiple employees be part of the same project is that what servicePeronal alter
+Can multiple employees be part of the same project is that what servicePeronal 
 table is for
 Explain Transaction table
 */
