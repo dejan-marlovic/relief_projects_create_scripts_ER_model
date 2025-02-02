@@ -303,3 +303,89 @@ INSERT INTO cost_details (
 
 -- External Audit Fees (Support Cost, cost_id = 2)
 (1, 1, 2, 'External Audit Fees', 1, 1, 200.000, 100.00, 200.000, 63.127, 4.546, 5.473, 0, NULL);
+
+
+
+
+INSERT INTO documents (
+    employee_id, document_name, document_path, project_id, is_deleted, deleted_at
+) VALUES
+-- For Emergency Flood Relief in South Asia (DRP-2024-001)
+(1, 'Flood Relief Budget Plan', 'path/to/documents/flood_relief_budget_plan.pdf', 1, 0, NULL),
+(2, 'Project Implementation Plan', 'path/to/documents/project_implementation_plan.pdf', 1, 0, NULL),
+
+-- For Food Assistance for Refugees (FSI-2024-002)
+(3, 'Food Distribution Report', 'path/to/documents/food_distribution_report.pdf', 2, 0, NULL),
+(4, 'Grant Application Form', 'path/to/documents/grant_application_form.pdf', 2, 0, NULL),
+
+-- For Vaccination Drive in Rural Africa (HVP-2024-003)
+(5, 'Vaccination Rollout Strategy', 'path/to/documents/vaccination_rollout_strategy.pdf', 3, 0, NULL),
+(6, 'Vaccine Inventory Report', 'path/to/documents/vaccine_inventory_report.pdf', 3, 0, NULL),
+
+-- For Education for Displaced Children (ESP-2024-004)
+(7, 'Curriculum Development Plan', 'path/to/documents/curriculum_development_plan.pdf', 4, 0, NULL),
+(8, 'Resource Allocation Overview', 'path/to/documents/resource_allocation_overview.pdf', 4, 0, NULL),
+
+-- For Women’s Economic Empowerment in Crisis Areas (WEP-2024-005)
+(9, 'Women Empowerment Training Materials', 'path/to/documents/women_empowerment_training_materials.pdf', 5, 0, NULL),
+(10, 'Project Monitoring and Evaluation Report', 'path/to/documents/project_monitoring_and_evaluation_report.pdf', 5, 0, NULL);
+
+
+INSERT INTO memos (message, position_id, project_id, memo_date, is_deleted, deleted_at) VALUES
+('Emergency Flood Relief in South Asia has been successfully launched. Please coordinate with local teams.', 1, 1, '2024-02-02', 0, NULL),
+('Please prepare the necessary documentation for the upcoming Food Assistance for Refugees project.', 2, 2, '2024-02-03', 0, NULL),
+('The Healthcare and Vaccination Program is scheduled for the next quarter. All preparations should be ready by then.', 3, 3, '2024-02-04', 0, NULL),
+('Ensure that the education support materials are delivered on time for the Education for Displaced Children project.', 1, 4, '2024-02-05', 0, NULL),
+('Women’s Economic Empowerment in Crisis Areas requires urgent updates on the funding status. Please check with the finance team.', 2, 5, '2024-02-06', 0, NULL);
+
+
+INSERT INTO bank_details (
+    organization_id, bank_name, account_number, branch_name, swift_code, is_deleted, deleted_at
+) VALUES
+(1, 'Bank of America', '1234567890', 'New York Branch', 'BOFAUS3N', 0, NULL),
+(2, 'Citibank', '9876543210', 'Los Angeles Branch', 'CITIUS33', 0, NULL),
+(3, 'Chase Bank', '1122334455', 'Chicago Branch', 'JPMUS33', 0, NULL),
+(4, 'Wells Fargo', '5566778899', 'San Francisco Branch', 'WFBIUS6S', 0, NULL),
+(5, 'HSBC', '9988776655', 'Miami Branch', 'HSBCUS33', 0, NULL);
+
+INSERT INTO locations (location_name, geo_coordinates, address_id, is_deleted, deleted_at)
+VALUES
+('South Asia Emergency Relief Hub', ST_GeomFromText('POINT(77.1025 28.7041)'), 1, 0, NULL),
+('Refugee Support Center in Europe', ST_GeomFromText('POINT(13.4050 52.5200)'), 2, 0, NULL),
+('Health Center in Africa', ST_GeomFromText('POINT(34.5085 -1.9703)'), 3, 0, NULL),
+('Educational Facility for Refugees', ST_GeomFromText('POINT(25.276987 55.296249)'), 4, 0, NULL),
+('Vocational Training Center for Women', ST_GeomFromText('POINT(40.7128 -74.0060)'), 5, 0, NULL);
+
+
+
+INSERT INTO partners (project_id, organization_id, partner_organization_id, is_deleted, deleted_at) VALUES
+(1, 2, 3, 0, NULL),  -- Partner organization for "Emergency Flood Relief in South Asia"
+(2, 12, 13, 0, NULL),  -- Partner organization for "Food Assistance for Refugees"
+(3, 13, 8, 0, NULL),  -- Partner organization for "Vaccination Drive in Rural Africa"
+(4, 14, 6, 0, NULL),  -- Partner organization for "Education for Displaced Children"
+(5, 15, 7, 0, NULL);  -- Partner organization for "Women’s Economic Empowerment in Crisis Areas"
+
+
+
+INSERT INTO project_participants (
+    project_participant_id, project_id, employee_id, position_id, is_deleted, deleted_at
+) VALUES
+-- Participant for Emergency Flood Relief in South Asia (Project 1)
+(1, 1, 1, 1, 0, NULL),  -- Alice Johnson (Project Manager)
+(2, 1, 2, 2, 0, NULL),  -- Bob Smith (Project Assistant)
+
+-- Participant for Food Assistance for Refugees (Project 2)
+(3, 2, 3, 1, 0, NULL),  -- Charlie Brown (Project Manager)
+(4, 2, 4, 2, 0, NULL),  -- David Williams (Project Assistant)
+
+-- Participant for Vaccination Drive in Rural Africa (Project 3)
+(5, 3, 5, 1, 0, NULL),  -- Emma Jones (Project Manager)
+(6, 3, 6, 2, 0, NULL),  -- Frank Miller (Project Assistant)
+
+-- Participant for Education for Displaced Children (Project 4)
+(7, 4, 7, 1, 0, NULL),  -- Grace Davis (Project Manager)
+(8, 4, 8, 2, 0, NULL),  -- Henry Wilson (Project Assistant)
+
+-- Participant for Women’s Economic Empowerment in Crisis Areas (Project 5)
+(9, 5, 9, 1, 0, NULL),  -- Isabella Moore (Project Manager)
+(10, 5, 10, 2, 0, NULL); -- Jack Taylor (Project Assistant)

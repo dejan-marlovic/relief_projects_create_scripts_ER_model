@@ -232,6 +232,7 @@ Explain Transaction table
 CREATE TABLE documents (
     document_id INT AUTO_INCREMENT PRIMARY KEY,
     employee_id INT NOT NULL,
+    document_name VARCHAR(255),
     document_path VARCHAR(1000),
     FOREIGN KEY (employee_id)
         REFERENCES employees (employee_id),
@@ -268,7 +269,7 @@ CREATE TABLE bank_details (
     FOREIGN KEY (organization_id)
         REFERENCES organizations (organization_id),
     bank_name VARCHAR(255) NOT NULL,
-    acount_number VARCHAR(50) UNIQUE NOT NULL,
+    account_number VARCHAR(50) UNIQUE NOT NULL,
     branch_name VARCHAR(255),
     swift_code VARCHAR(20),
     is_deleted TINYINT DEFAULT 0,
