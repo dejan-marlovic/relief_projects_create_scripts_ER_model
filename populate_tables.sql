@@ -411,3 +411,12 @@ INSERT INTO transactions (
 (2, 2, 3, 2, 1500000, 2, 140000, 110000, 1300000, 3, 2, 'No', 200000, 160000, NOW(), 'Yes'),
 (3, 3, 4, 3, 500000, 3, 45000, 35000, 400000, 4, 3, 'Yes', 75000, 60000, NOW(), 'No'),
 (4, 4, 5, 4, 750000, 4, 70000, 56000, 670000, 5, 4, 'No', 100000, 80000, NOW(), 'Yes');
+
+
+
+INSERT INTO signature_statuses (signature_status_name) 
+VALUES 
+    ('Reviewed'),
+    ('Ordered'),
+    ('Certified'),
+    ('Booked');
