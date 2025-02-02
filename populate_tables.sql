@@ -389,3 +389,25 @@ INSERT INTO project_participants (
 -- Participant for Women’s Economic Empowerment in Crisis Areas (Project 5)
 (9, 5, 9, 1, 0, NULL),  -- Isabella Moore (Project Manager)
 (10, 5, 10, 2, 0, NULL); -- Jack Taylor (Project Assistant)
+
+
+INSERT INTO transaction_statuses (transaction_status_name) VALUES
+('Payment received'),
+('Payment made'),
+('Debiting'),
+('Cancellation');
+
+
+
+
+INSERT INTO transactions (
+    organization_id, project_id, financier_organization_id, transaction_status_id, 
+    applied_for_amount, applied_for_exchange_rate_id, first_share_SEK_amount, 
+    first_sahre_amount, approved_amount, approved_amount_currency_id, 
+    approved_amount_exchange_rate_id, own_contribution, second_share_amount_SEK, 
+    second_share_amount, date_planned, OK
+) VALUES
+(1, 1, 2, 1, 1000000, 1, 100000, 80000, 900000, 2, 1, 'Yes', 150000, 120000, NOW(), 'Yes'),
+(2, 2, 3, 2, 1500000, 2, 140000, 110000, 1300000, 3, 2, 'No', 200000, 160000, NOW(), 'Yes'),
+(3, 3, 4, 3, 500000, 3, 45000, 35000, 400000, 4, 3, 'Yes', 75000, 60000, NOW(), 'No'),
+(4, 4, 5, 4, 750000, 4, 70000, 56000, 670000, 5, 4, 'No', 100000, 80000, NOW(), 'Yes');
