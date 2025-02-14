@@ -2,6 +2,8 @@ DROP DATABASE IF EXISTS relief_projects;
 CREATE DATABASE relief_projects;
 USE relief_projects;
 
+
+
 CREATE TABLE positions (
     position_id BIGINT AUTO_INCREMENT PRIMARY KEY,
     position_name VARCHAR(255) NOT NULL,
